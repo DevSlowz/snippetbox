@@ -25,10 +25,10 @@ func main() {
 	// http.NewServeMux initializes a new sermux(web server)
 	mux := http.NewServeMux()
 	// register home function as the handler for "/" URL pattern
-	mux.HandleFunc("/", home)
+	mux.HandleFunc("/{$}", home) // This route will only respond to exacy matches on / only
 
 	// View for viewing snippets
-	mux.HandleFunc("/snippet/view", snippetView)
+	mux.HandleFunc("/snippet/view/{id}", snippetView)
 	// View for creating snippets
 	mux.HandleFunc("/snippet/create", snippetCreate)
 
