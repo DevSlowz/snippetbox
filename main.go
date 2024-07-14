@@ -30,17 +30,25 @@ func snippetCreate(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Display a form for creating a new snippet"))
 }
 
+// Handler for saving a snippet
+func snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Save a new snippet..."))
+}
+
 func main() {
 
 	// http.NewServeMux initializes a new sermux(web server)
 	mux := http.NewServeMux()
 	// register home function as the handler for "/" URL pattern
-	mux.HandleFunc("/{$}", home) // This route will only respond to exacy matches on / only
+	mux.HandleFunc("GET /{$}", home) // This route will only respond to exacy matches on / only
 
 	// View for viewing snippets
-	mux.HandleFunc("/snippet/view/{id}", snippetView)
+	mux.HandleFunc("GET /snippet/view/{id}", snippetView)
 	// View for creating snippets
-	mux.HandleFunc("/snippet/create", snippetCreate)
+	mux.HandleFunc("GET /snippet/create", snippetCreate)
+
+	// View for create and save a snipped to the database
+	mux.HandleFunc("POST /snippet/create", snippetCreatePost)
 
 	log.Print("starting server on : 4000")
 
