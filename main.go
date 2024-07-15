@@ -32,6 +32,10 @@ func snippetCreate(w http.ResponseWriter, r *http.Request) {
 
 // Handler for saving a snippet
 func snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+	// Send 201 status code
+	w.WriteHeader(http.StatusCreated)
+
+	// Write response body
 	w.Write([]byte("Save a new snippet..."))
 }
 
