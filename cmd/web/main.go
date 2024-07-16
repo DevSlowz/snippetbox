@@ -8,6 +8,9 @@ import (
 func main() {
 	mux := http.NewServeMux()
 
+	// Create file server to serve files from the ui/static directory
+	fileServer := http.FileServer(http.Dir("./ui/static/"))
+
 	mux.HandleFunc("GET /{$}", home)
 
 	// View for viewing snippets
@@ -21,6 +24,10 @@ func main() {
 	// View for create and save a snipped to the database
 
 	mux.HandleFunc("POST /snippet/create", snippetCreatePost)
+
+	// Serve static files
+	// Strip "/static prefix before the request reaches file server"
+	mux.Handle("GET /static/", http.StripPrefix("/static", fileServer))
 
 	log.Print("starting server on : 4000")
 
